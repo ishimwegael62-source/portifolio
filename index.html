@@ -1,199 +1,687 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habineza Ishimwe Gael | Portfolio</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-muted: #f1f5f9;
+            --text: #0f172a;
+            --muted: #475569;
+            --border: #cbd5e1;
+            --accent: #6366f1;
+            --accent-strong: #4338ca;
+            --accent-soft: #eef2ff;
+            --shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+        }
 
-    <!-- Navbar -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/70 border-b border-slate-900">
-        <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#" class="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
-                Gael.dev
-            </a>
-            <div class="flex items-center gap-6 text-sm font-medium text-slate-400">
-                <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
-                <a href="#experience" class="hover:text-indigo-400 transition-colors">Experience</a>
-                <a href="#skills" class="hover:text-indigo-400 transition-colors">Skills</a>
-                <a href="#contact" class="px-4 py-2 rounded-full bg-slate-900 border border-slate-800 text-slate-200 hover:border-indigo-500 hover:text-white transition-all">
-                    Say Hello
-                </a>
+        html.dark {
+            color-scheme: dark;
+            --bg: #020617;
+            --surface: #111827;
+            --surface-muted: #1f2937;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: #334155;
+            --accent: #818cf8;
+            --accent-strong: #c7d2fe;
+            --accent-soft: rgba(99, 102, 241, 0.12);
+            --shadow: 0 24px 80px rgba(15, 23, 42, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1140px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+        }
+
+        html.dark header {
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .nav-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            height: 4rem;
+        }
+
+        .brand {
+            font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+            font-weight: 800;
+            background: linear-gradient(90deg, #6366f1, #06b6d4);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-meta,
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--surface-muted);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            cursor: pointer;
+            color: var(--text);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-soft);
+        }
+
+        .nav-link {
+            color: var(--muted);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .button-primary,
+        .button-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .button-primary {
+            padding: 0.95rem 1.5rem;
+            background: var(--accent);
+            color: #ffffff;
+            box-shadow: 0 16px 40px rgba(99, 102, 241, 0.18);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-1px);
+            background: #4f46e5;
+        }
+
+        .button-secondary {
+            padding: 0.95rem 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .button-secondary:hover {
+            background: var(--surface-muted);
+        }
+
+        .hero {
+            padding: 3rem 0 4rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            gap: 2.5rem;
+            grid-template-columns: 1.4fr 1fr;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 4vw, 4.5rem);
+            line-height: 1;
+            margin: 0;
+        }
+
+        .hero-subtitle {
+            margin: 0.7rem 0 0;
+            font-size: 1.4rem;
+            color: var(--muted);
+        }
+
+        .hero-subtitle strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .hero-copy {
+            max-width: 44rem;
+            line-height: 1.75;
+            margin: 1.2rem 0 0;
+            color: var(--muted);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .hero-image {
+            border-radius: 2rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            min-height: 22.5rem;
+            position: relative;
+        }
+
+        .section-title {
+            margin: 0 0 1rem;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-underline {
+            width: 3rem;
+            height: 0.35rem;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        .timeline {
+            position: relative;
+            border-left: 2px solid var(--border);
+            padding-left: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: -0.55rem;
+            top: 0.4rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 4px solid var(--surface);
+        }
+
+        .timeline-card {
+            padding-top: 0.25rem;
+        }
+
+        .timeline-meta {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            margin: 0.15rem 0;
+            font-size: 1.25rem;
+            color: var(--text);
+        }
+
+        .timeline-company {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .timeline-card a {
+            display: inline-flex;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 0.8rem 1rem;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #ffffff;
+            font-weight: 700;
+            transition: background 0.2s ease;
+        }
+
+        .timeline-card a:hover {
+            background: #4f46e5;
+        }
+
+        .timeline-list {
+            list-style: disc;
+            margin: 0;
+            padding-left: 1rem;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .skills-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .skill-card {
+            padding: 1.5rem;
+            border-radius: 1.25rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .skill-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 1rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .skill-title {
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            background: var(--surface-muted);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.75rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr 1.2fr;
+        }
+
+        .contact-card,
+        .contact-form {
+            border-radius: 2rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-card {
+            padding: 2rem;
+        }
+
+        .contact-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .contact-form {
+            padding: 2rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .contact-form label span {
+            display: block;
+            margin-bottom: 0.45rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            background: var(--surface-muted);
+            color: var(--text);
+            padding: 1rem 1rem;
+            font: inherit;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: var(--surface);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+        }
+
+        .contact-form textarea {
+            min-height: 11rem;
+            resize: vertical;
+        }
+
+        .contact-form-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid,
+            .contact-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-row {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-meta {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                width: calc(100% - 24px);
+            }
+
+            .hero-title {
+                font-size: 2.4rem;
+            }
+
+            .nav-links {
+                gap: 0.75rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .button-primary,
+            .button-secondary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-row">
+            <a href="#" class="brand">Gael.dev</a>
+            <div class="nav-meta">
+                <span class="language-pill">🇬🇧 English • 🇫🇷 Français</span>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <span id="theme-toggle-icon">🌙</span>
+                </button>
             </div>
-        </nav>
+            <div class="nav-links">
+                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#experience">Experience</a>
+                <a class="nav-link" href="#skills">Skills</a>
+                <a class="button-secondary" href="#contact">Say Hello</a>
+            </div>
+        </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-12 space-y-32">
-        
-        <!-- Hero Section -->
-        <section id="about" class="pt-12 md:pt-20">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-400">
-                <span>🇬🇧 English</span> • <span>🇫🇷 Français</span>
-            </div>
-            <div class="mt-10 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
-                <div class="space-y-6">
-                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-none">
-                        Habineza Ishimwe Gael
-                    </h1>
-                    <p class="text-xl md:text-2xl font-medium text-slate-400">
-                        Software Developer & <span class="text-indigo-400">UI/UX Designer</span>
-                    </p>
-                    <p class="text-base md:text-lg text-slate-400 leading-relaxed max-w-2xl">
-                        I bridge the gap between beautiful experiences and scalable code. Fresh off an intensive software development internship at <span class="text-white font-medium">San Tech</span>, I specialize in building web interfaces with modern design systems while keeping user behavior at the center of my design choices.
-                    </p>
-                    <div class="flex flex-wrap gap-4 pt-4">
-                        <a href="#contact" class="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium shadow-lg shadow-indigo-600/20 transition-all text-sm">
-                            Get in Touch
-                        </a>
-                        <a href="#experience" class="px-6 py-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800/50 font-medium transition-all text-sm">
-                            View My Work
-                        </a>
+    <main class="container">
+        <section id="about" class="hero">
+            <div class="hero-grid">
+                <div>
+                    <h1 class="hero-title">Habineza Ishimwe Gael</h1>
+                    <p class="hero-subtitle">Software Developer & <strong>UI/UX Designer</strong></p>
+                    <p class="hero-copy">I bridge the gap between beautiful experiences and scalable code. Fresh off an intensive software development internship at <strong>San Tech</strong>, I specialize in building web interfaces with modern design systems while keeping user behavior at the center of my design choices.</p>
+                    <div class="hero-actions">
+                        <a class="button-primary" href="#contact">Get in Touch</a>
+                        <a class="button-secondary" href="#experience">View My Work</a>
                     </div>
                 </div>
-                <div class="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950/40 shadow-2xl shadow-slate-950/40">
-                    <img src="pic2.jpeg" alt="Profile image" class="w-full h-full min-h-[360px] object-cover" />
-                    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-950/90 to-transparent"></div>
+                <div class="hero-image">
+                    <img src="pic2.jpeg" alt="Profile image" />
                 </div>
             </div>
         </section>
 
-        <!-- Experience Section -->
-        <section id="experience" class="space-y-8">
-            <div class="space-y-2">
-                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">Where I've Been</h2>
-                <div class="h-1 w-12 bg-indigo-500 rounded"></div>
+        <section id="experience">
+            <div style="margin-bottom:1.5rem;">
+                <p class="section-label">Experience</p>
+                <h2 class="section-title">Where I've Been</h2>
+                <div class="section-underline"></div>
             </div>
-
-            <div class="relative border-l border-slate-800 ml-3 pl-8 space-y-12">
-                <!-- Internship Event -->
-                <div class="relative">
-                    <span class="absolute -left-[37px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500 ring-4 ring-slate-950"></span>
-                    <div class="space-y-2">
-                        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400">Nov 2025 — May 2026</span>
-                        <h3 class="text-xl font-bold text-white">Software Development Intern</h3>
-                        <p class="text-sm font-medium text-slate-400">San Tech (Kigali, Rwanda)</p>
-                        <a href="https://internershipproject.netlify.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-500 transition-all">
-                            View my projects
-                        </a>
-                        <ul class="pt-2 space-y-2 text-sm text-slate-400 max-w-3xl list-disc pl-4 marker:text-indigo-500">
-                            <li>Designed interactive low-to-high fidelity layout systems in Figma before translating them into structured frontend interfaces.</li>
-                            <li>Built clean, interactive web applications using responsive JavaScript methodologies and professional UI frameworks.</li>
-                            <li>Collaborated closely with development teams to map system endpoints into predictable data modules.</li>
-                        </ul>
-                    </div>
+            <div class="timeline">
+                <div class="timeline-card">
+                    <p class="timeline-meta">Nov 2025 — May 2026</p>
+                    <h3 class="timeline-title">Software Development Intern</h3>
+                    <p class="timeline-company">San Tech (Kigali, Rwanda)</p>
+                    <a href="https://internershipproject.netlify.app/" target="_blank" rel="noopener noreferrer">View my projects</a>
+                    <ul class="timeline-list">
+                        <li>Designed interactive low-to-high fidelity layout systems in Figma before translating them into structured frontend interfaces.</li>
+                        <li>Built clean, interactive web applications using responsive JavaScript methodologies and professional UI frameworks.</li>
+                        <li>Collaborated closely with development teams to map system endpoints into predictable data modules.</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="space-y-8">
-            <div class="space-y-2">
-                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">Skills & Toolkit</h2>
-                <div class="h-1 w-12 bg-indigo-500 rounded"></div>
+        <section id="skills" style="margin-top:4rem;">
+            <div style="margin-bottom:1.5rem;">
+                <p class="section-label">Skills</p>
+                <h2 class="section-title">Skills & Toolkit</h2>
+                <div class="section-underline"></div>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Skill Card: Development -->
-                <div class="p-6 rounded-xl bg-slate-900/40 border border-slate-900 hover:border-slate-800/80 transition-all space-y-4">
-                    <div class="p-3 bg-indigo-500/10 rounded-lg w-fit text-indigo-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-white">Web Development</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">JavaScript</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">Vue.js Framework</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">HTML5 / CSS3</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">REST APIs</span>
+                    <h3 class="skill-title">Web Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Vue.js Framework</span>
+                        <span class="skill-tag">HTML5 / CSS3</span>
+                        <span class="skill-tag">REST APIs</span>
                     </div>
                 </div>
-
-                <!-- Skill Card: Design -->
-                <div class="p-6 rounded-xl bg-slate-900/40 border border-slate-900 hover:border-slate-800/80 transition-all space-y-4">
-                    <div class="p-3 bg-cyan-500/10 rounded-lg w-fit text-cyan-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-white">UI/UX Design</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">Figma</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">Wireframing</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">Prototyping</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">User Flows</span>
+                    <h3 class="skill-title">UI/UX Design</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Wireframing</span>
+                        <span class="skill-tag">Prototyping</span>
+                        <span class="skill-tag">User Flows</span>
                     </div>
                 </div>
-
-                <!-- Skill Card: Core Utilities -->
-                <div class="p-6 rounded-xl bg-slate-900/40 border border-slate-900 hover:border-slate-800/80 transition-all space-y-4">
-                    <div class="p-3 bg-emerald-500/10 rounded-lg w-fit text-emerald-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-white">Languages & Workflow</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">Tailwind CSS</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">Git & GitHub</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">English (Fluent)</span>
-                        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">French (Fluent)</span>
+                    <h3 class="skill-title">Languages & Workflow</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">Git & GitHub</span>
+                        <span class="skill-tag">English (Fluent)</span>
+                        <span class="skill-tag">French (Fluent)</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-12">
-            <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.2fr] items-center">
-                <div class="space-y-6">
-                    <div class="space-y-3">
-                        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-400">Contact</p>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Let’s build something exceptional together.</h2>
-                    </div>
-                    <p class="max-w-xl text-slate-400 leading-relaxed">
-                        I’m available for freelance projects, full-time roles, and product collaborations. Share your idea, timeline, and goals in the form, and I’ll get back to you with a clear plan and next steps.
-                    </p>
-                    <div class="rounded-3xl border border-slate-800 bg-slate-950/70 p-6 shadow-2xl shadow-slate-950/20">
-                        <p class="text-sm text-slate-400">
-                            Prefer email? Send a note to <a href="mailto:ishimwegael62@gmail.com" class="text-indigo-400 hover:text-indigo-300">ishimwegael62@gmail.com</a>.
-                        </p>
+        <section id="contact" style="margin-top:4rem;">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <p class="section-label">Contact</p>
+                    <h2 class="section-title">Let’s build something exceptional together.</h2>
+                    <p class="hero-copy">I’m available for freelance projects, full-time roles, and product collaborations. Share your idea, timeline, and goals in the form, and I’ll get back to you with a clear plan and next steps.</p>
+                    <div style="margin-top:1.5rem;">
+                        <p style="margin:0; color: var(--muted);">Prefer email? Send a note to <a href="mailto:ishimwegael62@gmail.com" style="color: var(--accent);">ishimwegael62@gmail.com</a>.</p>
                     </div>
                 </div>
-
-                <form action="https://formsubmit.co/ishimwegael62@gmail.com" method="POST" class="space-y-5 rounded-[2rem] border border-slate-800 bg-slate-950/80 p-8 shadow-2xl shadow-slate-950/30">
+                <form action="https://formsubmit.co/ishimwegael62@gmail.com" method="POST" class="contact-form">
                     <input type="hidden" name="_subject" value="New portfolio inquiry" />
                     <input type="hidden" name="_captcha" value="false" />
-                    <div class="grid gap-5 sm:grid-cols-2">
-                        <label class="space-y-2 text-sm text-slate-300">
-                            <span class="font-medium text-slate-100">Name</span>
-                            <input type="text" name="name" required placeholder="Your full name" class="w-full rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3 text-slate-100 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
-                        </label>
-                        <label class="space-y-2 text-sm text-slate-300">
-                            <span class="font-medium text-slate-100">Email</span>
-                            <input type="email" name="email" required placeholder="you@example.com" class="w-full rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3 text-slate-100 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
-                        </label>
-                    </div>
-                    <label class="space-y-2 text-sm text-slate-300">
-                        <span class="font-medium text-slate-100">Subject</span>
-                        <input type="text" name="subject" required placeholder="Project brief or role" class="w-full rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3 text-slate-100 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+                    <label>
+                        <span>Name</span>
+                        <input type="text" name="name" required placeholder="Your full name" />
                     </label>
-                    <label class="space-y-2 text-sm text-slate-300">
-                        <span class="font-medium text-slate-100">Message</span>
-                        <textarea name="message" rows="6" required placeholder="Tell me about your project..." class="w-full rounded-3xl border border-slate-800 bg-slate-900 px-4 py-3 text-slate-100 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"></textarea>
+                    <label>
+                        <span>Email</span>
+                        <input type="email" name="email" required placeholder="you@example.com" />
                     </label>
-                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                        <p class="text-sm text-slate-500">I aim to reply within 24 hours.</p>
-                        <button type="submit" class="inline-flex items-center justify-center rounded-3xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30">
-                            Send message
-                        </button>
+                    <label>
+                        <span>Subject</span>
+                        <input type="text" name="subject" required placeholder="Project brief or role" />
+                    </label>
+                    <label>
+                        <span>Message</span>
+                        <textarea name="message" rows="6" required placeholder="Tell me about your project..."></textarea>
+                    </label>
+                    <div class="contact-form-footer">
+                        <p style="margin:0; color: var(--muted);">I aim to reply within 24 hours.</p>
+                        <button class="button-primary" type="submit">Send message</button>
                     </div>
                 </form>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-900 py-8 text-center text-xs text-slate-600">
+    <footer class="footer">
         <p>&copy; 2026 Habineza Ishimwe Gael. All rights reserved.</p>
     </footer>
 
+    <script>
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+        const htmlEl = document.documentElement;
+
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                htmlEl.classList.add('dark');
+                themeToggleIcon.textContent = '☀️';
+            } else {
+                htmlEl.classList.remove('dark');
+                themeToggleIcon.textContent = '🌙';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        setTheme(initialTheme);
+
+        themeToggleButton.addEventListener('click', () => {
+            setTheme(htmlEl.classList.contains('dark') ? 'light' : 'dark');
+        });
+    </script>
 </body>
 </html>
